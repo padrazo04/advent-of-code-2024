@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace AdventOfCode2024;
 
@@ -22,7 +20,7 @@ public static class Program
             return;
         }
 
-        string inputData = GetInputData(challengeDay).Result;
+        string inputData = InputData.Get(challengeDay).Result;
 
         switch (challengeDay)
         {
@@ -40,21 +38,5 @@ public static class Program
     {
         Console.WriteLine("Error. This program receives exactly one number from 1 to 25 as argument. Usage: <dotnet run -- day>");
         Console.WriteLine("Usage example:\n- dotnet run -- 1\n- dotnet run -- 24");
-    }
-
-
-    private static async Task<string> GetInputData(int challengeDay)
-    {
-        HttpClient httpClient = new HttpClient();
-
-        HttpRequestMessage request = new HttpRequestMessage
-        {
-            Method = HttpMethod.Get,
-            RequestUri = new Uri($"https://adventofcode.com/2024/day/{challengeDay}/input")
-        };
-
-        request.Headers.Add("Cookie", "session=YOUR_SESSION_COOKIE");
-        HttpResponseMessage response = httpClient.Send(request);
-        return await response.Content.ReadAsStringAsync();
     }
 }
